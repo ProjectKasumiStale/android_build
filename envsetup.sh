@@ -14,14 +14,12 @@ Invoke ". build/envsetup.sh" from your shell to add the following functions to y
 - cgrep:     Greps on all local C/C++ files.
 - ggrep:     Greps on all local Gradle files.
 - jgrep:     Greps on all local Java files.
-- repopick: Utility to fetch changes from Gerrit.
 - resgrep:   Greps on all local res/*.xml files.
 - mangrep:   Greps on all local AndroidManifest.xml files.
 - mgrep:     Greps on all local Makefiles files.
 - sepgrep:   Greps on all local sepolicy files.
 - sgrep:     Greps on all local source files.
 - godir:     Go to the directory containing a file.
-- gerrit:    Adds a remote for AOSiP Gerrit
 
 Environment options:
 - SANITIZE_HOST: Set to 'true' to use ASAN for all host modules. Note that
@@ -128,8 +126,8 @@ function check_product()
         return
     fi
 
-    if (echo -n $1 | grep -q -e "^aosip_") ; then
-       CUSTOM_BUILD=$(echo -n $1 | sed -e 's/^aosip_//g')
+    if (echo -n $1 | grep -q -e "^kasumi_") ; then
+       CUSTOM_BUILD=$(echo -n $1 | sed -e 's/^kasumi_//g')
     else
        CUSTOM_BUILD=
     fi
@@ -1519,26 +1517,6 @@ function mka() {
             mk_timer schedtool -B -n 10 -e ionice -n 7 make -C $T -j$(cat /proc/cpuinfo | grep "^processor" | wc -l) "$@"
             ;;
     esac
-}
-
-function repopick() {
-    T=$(gettop)
-    $T/build/tools/repopick.py $@
-}
-
-function gerrit() {
-    if [ ! -d ".git" ]; then
-        echo -e "Please run this inside a git directory";
-    else
-        if [ -d ".git/refs/remotes/gerrit" ]; then
-            git remote rm gerrit;
-        fi
-        if [[ -z "${GERRIT_USER}" ]]; then
-            git remote add gerrit $(git remote -v | grep AOSiP | awk '{print $2}' | uniq | sed -e 's|https://github.com/AOSiP|ssh://review.aosiprom.com:29418/AOSIP|');
-        else
-            git remote add gerrit $(git remote -v | grep AOSiP | awk '{print $2}' | uniq | sed -e 's|https://github.com/AOSiP|ssh://${GERRIT_USER}@review.aosiprom.com:29418/AOSIP|');
-        fi
-    fi
 }
 
 # Force JAVA_HOME to point to java 1.7 if it isn't already set.

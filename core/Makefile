@@ -2213,27 +2213,26 @@ $(INTERNAL_OTA_PACKAGE_TARGET): $(BUILT_TARGET_FILES_PACKAGE)
 	   $(if $(OEM_OTA_CONFIG), -o $(OEM_OTA_CONFIG)) \
 	   $(BUILT_TARGET_FILES_PACKAGE) $@
 
-CUSTOM_TARGET_PACKAGE := $(PRODUCT_OUT)/AOSiP-$(AOSIP_VERSION).zip
+CUSTOM_TARGET_PACKAGE := $(PRODUCT_OUT)/Kasumi-$(KASUMI_VERSION).zip
 
-.PHONY: otapackage kronic bacon
+.PHONY: otapackage bandori bacon
 otapackage: $(INTERNAL_OTA_PACKAGE_TARGET)
-kronic: bacon
+bandori: bacon
 bacon: otapackage
 	$(hide) ln -f $(INTERNAL_OTA_PACKAGE_TARGET) $(CUSTOM_TARGET_PACKAGE)
 	$(hide) $(MD5SUM) $(CUSTOM_TARGET_PACKAGE) > $(CUSTOM_TARGET_PACKAGE).md5sum
 	@echo -e ""
-	@echo -e "${cya}Building ${bldcya}AOSiP ${txtrst}";
-	@echo -e ""
-	@echo -e ${CL_GRN}"            ▄▄▄·       .▄▄ · ▪   ▄▄▄·          "
-	@echo -e ${CL_GRN}"           ▐█ ▀█ ▪     ▐█ ▀. ██ ▐█ ▄█          "
-	@echo -e ${CL_GRN}"           ▄█▀▀█  ▄█▀▄ ▄▀▀▀█▄▐█· ██▀·          "
-	@echo -e ${CL_GRN}"           ▐█ ▪▐▌▐█▌.▐▌▐█▄▪▐█▐█▌▐█▪·•          "
-	@echo -e ${CL_GRN}"            ▀  ▀  ▀█▄▀▪ ▀▀▀▀ ▀▀▀.▀             "
-	@echo -e ""
-	@echo -e ${CL_MAG}"zip: "${CL_CYN} $(CUSTOM_TARGET_PACKAGE)${CL_RST}
-	@echo -e ${CL_MAG}"md5: "${CL_CYN}" `cat $(CUSTOM_TARGET_PACKAGE).md5sum | cut -d ' ' -f 1`"${CL_RST}
-	@echo -e ${CL_MAG}"size:"${CL_CYN}" `ls -lah $(CUSTOM_TARGET_PACKAGE) | cut -d ' ' -f 5`"${CL_RST}
-	@echo -e ""
+	@echo -e "${cya}Building ${bldcya}Kasumi ${txtrst}";
+	@echo -e "" >&2
+	@echo "//          Project Kasumi          //" >&2
+	@echo "// PoPiPa, PiPoPa, PoPiPaPaPiPoPa~! //" >&2
+	@echo -e "" >&2
+	@echo -e ${CL_MAG}"zip: "${CL_CYN} $(CUSTOM_TARGET_PACKAGE)${CL_RST} >&2
+	@echo -e ${CL_MAG}"md5: "${CL_CYN}" `cat $(CUSTOM_TARGET_PACKAGE).md5sum | cut -d ' ' -f 1`"${CL_RST} >&2
+	@echo -e ${CL_MAG}"size:"${CL_CYN}" `ls -lah $(CUSTOM_TARGET_PACKAGE) | cut -d ' ' -f 5`"${CL_RST} >&2
+	@echo -e "" >&2
+	@echo -e "To get started, get your custom recovery up and slap this ROM in!" >&2
+	@echo -e "Based on AOSiP, brought to you by Bedirhan KURT (@WindowZ414)" >&2
 endif    # build_ota_package
 # -----------------------------------------------------------------
 # The factory package
