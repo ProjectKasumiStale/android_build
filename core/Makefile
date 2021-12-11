@@ -2232,7 +2232,7 @@ bacon: otapackage
 	@echo -e ${CL_MAG}"size:"${CL_CYN}" `ls -lah $(CUSTOM_TARGET_PACKAGE) | cut -d ' ' -f 5`"${CL_RST} >&2
 	@echo -e "" >&2
 	@echo -e "To get started, get your custom recovery up and slap this ROM in!" >&2
-	@echo -e "Based on AOSiP, brought to you by Bedirhan KURT (@WindowZ414)" >&2
+	@echo -e "Based on AOSiP, brought to you by Beru Shinsetsu (@WindowZ414)" >&2
 endif    # build_ota_package
 # -----------------------------------------------------------------
 # The factory package
